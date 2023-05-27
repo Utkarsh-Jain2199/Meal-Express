@@ -94,6 +94,81 @@
 // }
 
 
+// import React, { useEffect, useState } from 'react';
+// import Card from '../components/Card';
+// import Footer from '../components/Footer';
+// import Navbar from '../components/Navbar';
+
+// export default function Home() {
+//   const [foodCat, setFoodCat] = useState([]);
+//   const [foodItems, setFoodItems] = useState([]);
+//   const [search, setSearch] = useState('');
+
+//   const loadFoodItems = async () => {
+//     try {
+//       const response = await fetch("https://meal-express-backend.vercel.app/api/auth/foodData", {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         }
+//       });
+//       const data = await response.json();
+//       setFoodItems(data[0]);
+//       setFoodCat(data[1]);
+//     } catch (error) {
+//       console.error('Error fetching food data:', error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     loadFoodItems();
+//   }, []);
+
+//   return (
+//     <div>
+//       <Navbar />
+
+//       <div id="carouselExampleFade" className="carousel slide carousel-fade" data-bs-ride="carousel">
+//         {/* Carousel code */}
+//       </div>
+
+//       <div className='container'>
+//         {foodCat && foodCat.length > 0 ? (
+//           foodCat.map((data) => (
+//             <div className='row mb-3' key={data.id}>
+//               <div className='fs-3 m-3'>{data.CategoryName}</div>
+//               <hr
+//                 id="hr-success"
+//                 style={{
+//                   height: "4px",
+//                   backgroundImage: "-webkit-linear-gradient(left,rgb(0, 255, 137),rgb(0, 0, 0))"
+//                 }}
+//               />
+//               {foodItems
+//                 .filter((items) => (items.CategoryName === data.CategoryName) && (items.name.toLowerCase().includes(search.toLowerCase())))
+//                 .map((filterItems) => (
+//                   <div key={filterItems.id} className='col-12 col-md-6 col-lg-3'>
+//                     {console.log(filterItems.url)}
+//                     <Card
+//                       foodName={filterItems.name}
+//                       item={filterItems}
+//                       options={filterItems.options[0]}
+//                       ImgSrc={filterItems.img}
+//                     />
+//                   </div>
+//                 ))}
+//             </div>
+//           ))
+//         ) : (
+//           <div>No data available</div>
+//         )}
+//       </div>
+
+//       <Footer />
+//     </div>
+//   );
+// }
+
 import React, { useEffect, useState } from 'react';
 import Card from '../components/Card';
 import Footer from '../components/Footer';
@@ -133,8 +208,12 @@ export default function Home() {
       </div>
 
       <div className='container'>
-        {foodCat && foodCat.length > 0 ? (
-          foodCat.map((data) => (
+        {foodCat.map((data) => {
+          const filteredItems = foodItems.filter(
+            (items) => items.CategoryName === data.CategoryName && items.name.toLowerCase().includes(search.toLowerCase())
+          );
+
+          return (
             <div className='row mb-3' key={data.id}>
               <div className='fs-3 m-3'>{data.CategoryName}</div>
               <hr
@@ -144,9 +223,8 @@ export default function Home() {
                   backgroundImage: "-webkit-linear-gradient(left,rgb(0, 255, 137),rgb(0, 0, 0))"
                 }}
               />
-              {foodItems
-                .filter((items) => (items.CategoryName === data.CategoryName) && (items.name.toLowerCase().includes(search.toLowerCase())))
-                .map((filterItems) => (
+              {filteredItems.length > 0 ? (
+                filteredItems.map((filterItems) => (
                   <div key={filterItems.id} className='col-12 col-md-6 col-lg-3'>
                     {console.log(filterItems.url)}
                     <Card
@@ -156,12 +234,15 @@ export default function Home() {
                       ImgSrc={filterItems.img}
                     />
                   </div>
-                ))}
+                ))
+              ) : (
+                <div className='col-12'>
+                  <p>No matching items for this category.</p>
+                </div>
+              )}
             </div>
-          ))
-        ) : (
-          <div>No data available</div>
-        )}
+          );
+        })}
       </div>
 
       <Footer />
