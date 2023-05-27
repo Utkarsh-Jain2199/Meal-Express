@@ -152,7 +152,7 @@ export default function Home() {
                     backgroundImage: "-webkit-linear-gradient(left,rgb(0, 255, 137),rgb(0, 0, 0))"
                   }}
                 />
-                {filteredItems.length > 0 ? (
+                {filteredItems && filteredItems.length > 0 ? (
                   filteredItems.map((filterItems) => (
                     <div key={filterItems.id} className='col-12 col-md-6 col-lg-3'>
                       {console.log(filterItems.url)}
@@ -178,5 +178,3 @@ export default function Home() {
     </div>
   );
 }
-
-
