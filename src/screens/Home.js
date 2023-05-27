@@ -64,7 +64,8 @@ export default function Home() {
       </div>
       <div className='container'> {/* boootstrap is mobile first */}
         {
-          foodCat !== []
+          //foodCat !== []
+          foodCat.length
             ? foodCat.map((data) => {
               return (
                 // justify-content-center
