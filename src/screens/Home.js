@@ -309,7 +309,7 @@ export default function Home() {
 
         if (response.ok) {
           response = await response.json();
-          console.log(response.length, "food and item");
+          //console.log(response.length, "food and item");
           setFoodItems(response[0]);
           setFoodCat(response[1]);
           success = true
@@ -377,7 +377,7 @@ export default function Home() {
               {foodItems && foodItems.length !== 0 ? foodItems
                 .filter((items) => items.CategoryName === data.CategoryName && items.name.toLowerCase().includes(search.toLowerCase()))
                 .map(filterItems => {
-                  console.log(filterItems, "key")
+                 // console.log(filterItems, "key")
                   return (
                     <div key={filterItems._id} className='col-12 col-md-6 col-lg-3'>
                       <Card foodName={filterItems.name} item={filterItems} options={filterItems.options[0]} ImgSrc={filterItems?.img} />
