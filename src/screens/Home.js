@@ -209,7 +209,7 @@ export default function Home() {
     if(response.length<=2){
           retries++;
     }
-    console.log(response.length,"food and item");
+    //console.log(response.length,"food and item");
     setFoodItems(response[0]);
     setFoodCat(response[1]);
   }
