@@ -183,6 +183,108 @@
 // }
 
 
+// import React, { useEffect, useState } from 'react';
+// import Card from '../components/Card';
+// import Footer from '../components/Footer';
+// import Navbar from '../components/Navbar';
+
+// export default function Home() {
+//   const [foodCat, setFoodCat] = useState([]);
+//   const [foodItems, setFoodItems] = useState([]);
+//   const [search, setSearch] = useState('');
+
+//   const loadFoodItems = async () => {
+//     try {
+      
+//     const maxRetries = 10; // Maximum number of retry attempts
+//      let retries = 0;
+//        while (retries < maxRetries) {  
+//     let response = await fetch("https://meal-express-backend.vercel.app/api/auth/foodData", {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       }
+//     });
+//     response = await response.json();
+//     if(response.length<=2){
+//           retries++;
+//     }
+//     //console.log(response.length,"food and item");
+//     setFoodItems(response[0]);
+//     setFoodCat(response[1]);
+//   }
+//      } catch (error) {
+//       console.log(error,"error  ")
+//     }
+//   }
+
+//   useEffect(() => {
+//     loadFoodItems();
+//   }, []);
+
+//   return (
+//     <div>
+//       <div>
+//         <Navbar />
+//       </div>
+//       <div>
+//         <div id="carouselExampleFade" className="carousel slide carousel-fade" data-bs-ride="carousel">
+//           <div className="carousel-inner" id='carousel'>
+//             <div className="carousel-caption" style={{ zIndex: "9" }}>
+//               <div className="d-flex justify-content-center">
+//                 <input className="form-control me-2 w-75 bg-white text-dark" type="search" placeholder="Search in here..." aria-label="Search" value={search} onChange={(e) => { setSearch(e.target.value) }} />
+//                 <button className="btn text-white bg-danger" onClick={() => { setSearch('') }}>X</button>
+//               </div>
+//             </div>
+//             <div className="carousel-item active">
+//               <img src="https://source.unsplash.com/random/900x700/?burger" className="d-block w-100" style={{ filter: "brightness(30%)" }} alt="..." />
+//             </div>
+//             <div className="carousel-item">
+//               <img src="https://source.unsplash.com/random/900x700/?pastry" className="d-block w-100" style={{ filter: "brightness(30%)" }} alt="..." />
+//             </div>
+//             <div className="carousel-item">
+//               <img src="https://source.unsplash.com/random/900x700/?barbeque" className="d-block w-100" style={{ filter: "brightness(30%)" }} alt="..." />
+//             </div>
+//           </div>
+//           <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+//             <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+//             <span className="visually-hidden">Previous</span>
+//           </button>
+//           <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+//             <span className="carousel-control-next-icon" aria-hidden="true"></span>
+//             <span className="visually-hidden">Next</span>
+//           </button>
+//         </div>
+//       </div>
+//       <div className='container'>
+//         {foodCat && foodCat.length !== 0 ? foodCat.map((data) => {
+//           return (
+//             <div className='row mb-3' key={data.id}>
+//               <div className='fs-3 m-3'>
+//                 {data.CategoryName}
+//               </div>
+//               <hr id="hr-success" style={{ height: "4px", backgroundImage: "-webkit-linear-gradient(left, rgb(0, 255, 137), rgb(0, 0, 0))" }} />
+//               {foodItems && foodItems.length !== 0 ? foodItems
+//                 .filter((items) => items.CategoryName === data.CategoryName && items.name.toLowerCase().includes(search.toLowerCase()))
+//                 .map(filterItems => {
+//                   console.log(filterItems,"key")
+//                   return (
+//                     <div key={filterItems._id} className='col-12 col-md-6 col-lg-3'>
+                   
+//                       <Card foodName={filterItems.name} item={filterItems} options={filterItems.options[0]} ImgSrc={filterItems.img} />
+//                     </div>
+//                   )
+//                 }) : <div>No Such Data</div>}
+//             </div>
+//           )
+//         }) : ""}
+//       </div>
+//       <Footer />
+//     </div>
+//   );
+// }
+
+
 import React, { useEffect, useState } from 'react';
 import Card from '../components/Card';
 import Footer from '../components/Footer';
@@ -194,27 +296,35 @@ export default function Home() {
   const [search, setSearch] = useState('');
 
   const loadFoodItems = async () => {
-    try {
-      
-    const maxRetries = 10; // Maximum number of retry attempts
-     let retries = 0;
-       while (retries < maxRetries) {  
-    let response = await fetch("https://meal-express-backend.vercel.app/api/auth/foodData", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
+    let success = false;
+    while (!success) {
+     
+      try {     
+        let response = await fetch("https://meal-express-backend.vercel.app/api/auth/foodData", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          response = await response.json();
+          console.log(response.length, "food and item");
+          setFoodItems(response[0]);
+          setFoodCat(response[1]);
+          success = true
+        } else {
+          console.log("api failure",response)
+        }
+
+
+      } catch (error) {
+        console.log(error, "error while calling api  ")
       }
-    });
-    response = await response.json();
-    if(response.length<=2){
-          retries++;
     }
-    //console.log(response.length,"food and item");
-    setFoodItems(response[0]);
-    setFoodCat(response[1]);
-  }
-     } catch (error) {
-      console.log(error,"error  ")
+    if (!success) {
+      console.log('Retrying API call...');
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     }
   }
 
@@ -267,11 +377,10 @@ export default function Home() {
               {foodItems && foodItems.length !== 0 ? foodItems
                 .filter((items) => items.CategoryName === data.CategoryName && items.name.toLowerCase().includes(search.toLowerCase()))
                 .map(filterItems => {
-                  console.log(filterItems,"key")
+                  console.log(filterItems, "key")
                   return (
                     <div key={filterItems._id} className='col-12 col-md-6 col-lg-3'>
-                   
-                      <Card foodName={filterItems.name} item={filterItems} options={filterItems.options[0]} ImgSrc={filterItems.img} />
+                      <Card foodName={filterItems.name} item={filterItems} options={filterItems.options[0]} ImgSrc={filterItems?.img} />
                     </div>
                   )
                 }) : <div>No Such Data</div>}
@@ -283,6 +392,8 @@ export default function Home() {
     </div>
   );
 }
+
+
 
 
 
