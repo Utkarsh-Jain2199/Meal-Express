@@ -300,7 +300,7 @@ export default function Home() {
     while (!success) {
      
       try {     
-        let response = await fetch("https://meal-express-backend.onrender.com/api/auth/foodData", {
+        let response = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/foodData", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
