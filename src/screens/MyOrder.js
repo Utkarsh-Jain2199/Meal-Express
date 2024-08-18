@@ -1,101 +1,84 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
+import '../components/styles/MyOrder.css'; // New CSS file for additional styling
 
 export default function MyOrder() {
-
-    const [orderData, setorderData] = useState({})
+    const [orderData, setOrderData] = useState(null);
 
     const fetchMyOrder = async () => {
-        console.log(localStorage.getItem('userEmail'))
-        await fetch("https://meal-express-backend.onrender.com/api/auth/myOrderData", {
-            // credentials: 'include',
-            // Origin:"http://localhost:3000/login",
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify({
-                email:localStorage.getItem('userEmail')
-            })
-        }).then(async (res) => {
-            let response = await res.json()
-            await setorderData(response)
-        })
+        const userEmail = localStorage.getItem('userEmail');
+        if (!userEmail) return; // Handle case where email is missing
 
+        try {
+            const res = await fetch("https://meal-express-backend.onrender.com/api/auth/myOrderData", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: userEmail }),
+            });
 
-
-        // await res.map((data)=>{
-        //    console.log(data)
-        // })
-
-
-    }
+            const response = await res.json();
+            setOrderData(response);
+        } catch (error) {
+            console.error("Error fetching order data:", error);
+        }
+    };
 
     useEffect(() => {
-        fetchMyOrder()
-    }, [])
+        fetchMyOrder();
+    }, []);
+
+    if (!orderData || !orderData.orderData) {
+        return (
+            <div className="loading-container">
+                <div className="spinner-border text-warning" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div>
-            <div>
-                <Navbar />
-            </div>
-
-            <div className='container'>
-                <div className='row'>
-
-                    {orderData !== {} ? Array(orderData).map(data => {
-                        return (
-                            data.orderData ?
-                                data.orderData.order_data.slice(0).reverse().map((item) => {
-                                    return (
-                                        item.map((arrayData) => {
-                                            return (
-                                                <div  >
-                                                    {arrayData.Order_date ? <div className='m-auto mt-5'>
-
-                                                        {data = arrayData.Order_date}
-                                                        <hr />
-                                                    </div> :
-
-                                                        <div className='col-12 col-md-6 col-lg-3' >
-                                                            <div className="card mt-3" style={{ width: "16rem", maxHeight: "360px" }}>
-                                                                <img src={arrayData.img} className="card-img-top" alt="..." style={{ height: "120px", objectFit: "fill" }} />
-                                                                <div className="card-body">
-                                                                    <h5 className="card-title">{arrayData.name}</h5>
-                                                                    <div className='container w-100 p-0' style={{ height: "38px" }}>
-                                                                        <span className='m-1'>{arrayData.qty}</span>
-                                                                        <span className='m-1'>{arrayData.size}</span>
-                                                                        <span className='m-1'>{data}</span>
-                                                                        <div className=' d-inline ms-2 h-100 w-20 fs-5' >
-                                                                            ₹{arrayData.price}/-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+            <Navbar />
+            <div className="container my-order-container">
+                <h2 className="text-center my-4">My Orders</h2>
+                <div className="row">
+                    {orderData.orderData.order_data.slice(0).reverse().map((order, index) => (
+                        <div key={index} className="col-12 mb-4">
+                            <h5 className="order-date text-center">Order Date: {order[0].Order_date}</h5>
+                            <hr />
+                            <div className="row">
+                                {order.map((item, idx) => (
+                                    item.Order_date ? null : (
+                                        <div key={idx} className="col-12 col-md-6 col-lg-4 mb-3 d-flex">
+                                            <div className="card shadow-sm flex-fill">
+                                                <img src={item.img} className="card-img-top" alt={item.name} />
+                                                <div className="card-body">
+                                                    <h5 className="card-title">{item.name}</h5>
+                                                    <div className="container p-0">
+                                                        <span className="badge bg-primary me-2">Qty: {item.qty}</span>
+                                                        <span className="badge bg-secondary me-2">Size: {item.size}</span>
+                                                        <div className="price-section mt-2 d-flex justify-content-between align-items-center">
+                                                            <span className="text-muted">{item.Order_date}</span>
+                                                            <div className="price-tag fs-5">
+                                                                ₹{item.price}/-
                                                             </div>
-
                                                         </div>
-
-
-
-                                                    }
-
+                                                    </div>
                                                 </div>
-                                            )
-                                        })
-
+                                            </div>
+                                        </div>
                                     )
-                                }) : ""
-                        )
-                    }) : ""}
+                                ))}
+                            </div>
+                        </div>
+                    ))}
                 </div>
-
-
             </div>
-
             <Footer />
         </div>
-    )
+    );
 }
-// {"orderData":{"_id":"63024fd2be92d0469bd9e31a","email":"mohanDas@gmail.com","order_data":[[[{"id":"62ff20fbaed6a15f800125e9","name":"Chicken Fried Rice","qty":"4","size":"half","price":520},{"id":"62ff20fbaed6a15f800125ea","name":"Veg Fried Rice","qty":"4","size":"half","price":440}],"2022-08-21T15:31:30.239Z"],[[{"id":"62ff20fbaed6a15f800125f4","name":"Mix Veg Pizza","qty":"4","size":"medium","price":800},{"id":"62ff20fbaed6a15f800125f3","name":"Chicken Doub;e Cheeze Pizza","qty":"4","size":"regular","price":480}],"2022-08-21T15:32:38.861Z"]],"__v":0}}
