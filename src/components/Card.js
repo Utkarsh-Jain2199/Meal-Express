@@ -109,6 +109,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatchCart, useCart } from './ContextReducer';
+import './styles/Card.css'; // New CSS file for styling
 
 export default function Card(props) {
   const data = useCart();
@@ -121,11 +122,11 @@ export default function Card(props) {
   const foodItem = props.item;
   const dispatch = useDispatchCart();
 
-  const handleClick = () => {
-    if (!localStorage.getItem('token')) {
-      navigate('/login');
-    }
-  };
+  const isLoggedIn = !!localStorage.getItem('token');
+
+  useEffect(() => {
+    setSize(priceRef.current.value);
+  }, []);
 
   const handleQty = (e) => {
     setQty(e.target.value);
@@ -136,22 +137,18 @@ export default function Card(props) {
   };
 
   const handleAddToCart = async () => {
-    let food = [];
-    for (const item of data) {
-      if (item.id === foodItem._id) {
-        food = item;
-        break;
-      }
+    if (!isLoggedIn) {
+      alert('Please log in to add items to your cart.');
+      navigate('/login');
+      return;
     }
 
-    console.log(food);
-    console.log(new Date());
+    let food = data.find(item => item.id === foodItem._id);
 
-    if (food !== []) {
+    if (food) {
       if (food.size === size) {
         await dispatch({ type: 'UPDATE', id: foodItem._id, price: finalPrice, qty: qty });
-        return;
-      } else if (food.size !== size) {
+      } else {
         await dispatch({
           type: 'ADD',
           id: foodItem._id,
@@ -161,48 +158,67 @@ export default function Card(props) {
           size: size,
           img: props.ImgSrc,
         });
-        console.log('Size different so simply ADD one more to the list');
-        return;
       }
-      return;
+    } else {
+      await dispatch({
+        type: 'ADD',
+        id: foodItem._id,
+        name: foodItem.name,
+        price: finalPrice,
+        qty: qty,
+        size: size,
+      });
     }
-
-    await dispatch({ type: 'ADD', id: foodItem._id, name: foodItem.name, price: finalPrice, qty: qty, size: size });
   };
-
-  useEffect(() => {
-    setSize(priceRef.current.value);
-  }, []);
 
   let finalPrice = qty * parseInt(options[size]);
 
   return (
-    <div>
-      <div className="card mt-3" style={{ width: '16rem', maxHeight: '360px' }}>
-        <img src={props.ImgSrc} className="card-img-top" alt="..." style={{ height: '120px', objectFit: 'fill' }} />
+    <div className="food-card-container">
+      <div className="card mt-3 shadow-sm food-card">
+        <img
+          src={props.ImgSrc}
+          className="card-img-top food-card-img"
+          alt={props.foodName}
+        />
         <div className="card-body">
           <h5 className="card-title">{props.foodName}</h5>
-          <div className="container w-100 p-0" style={{ height: '38px' }}>
-            <div className="d-flex align-items-center">
-              <select className="form-select m-2 w-20" onClick={handleClick} onChange={handleQty}>
+          <div className="container p-0">
+            <div className="d-flex align-items-center justify-content-between">
+              <select
+                className="form-select m-2 qty-select"
+                onChange={handleQty}
+                disabled={!isLoggedIn}
+                aria-label="Select quantity"
+              >
                 {Array.from(Array(6), (e, i) => (
                   <option key={i + 1} value={i + 1}>
                     {i + 1}
                   </option>
                 ))}
               </select>
-              <select className="form-select m-2 w-20" ref={priceRef} onClick={handleClick} onChange={handleOptions}>
+              <select
+                className="form-select m-2 size-select"
+                ref={priceRef}
+                onChange={handleOptions}
+                disabled={!isLoggedIn}
+                aria-label="Select size"
+              >
                 {priceOptions.map((i) => (
                   <option key={i} value={i}>
                     {i}
                   </option>
                 ))}
               </select>
-              <div className="d-inline ms-2 fs-5">₹{finalPrice}/-</div>
+              <div className="price-tag">₹{finalPrice}/-</div>
             </div>
           </div>
           <hr />
-          <button className="btn btn-success ms-2" onClick={handleAddToCart}>
+          <button
+            className="btn btn-success w-100 add-to-cart-btn"
+            onClick={handleAddToCart}
+            aria-label="Add to cart"
+          >
             Add to Cart
           </button>
         </div>
