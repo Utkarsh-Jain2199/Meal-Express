@@ -1,0 +1,47 @@
+/* Carousel.css */
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+
+.carousel-image {
+  height: 400px;
+  object-fit: cover;
+  filter: brightness(50%);
+  transition: filter 0.5s ease;
+}
+
+.carousel-image:hover {
+  filter: brightness(70%);
+}
+
+.carousel-caption {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  text-align: center;
+}
+
+.carousel-caption form {
+  max-width: 600px;
+}
+
+.carousel-caption input {
+  border-radius: 25px;
+  padding: 0.5rem 1rem;
+}
+
+.carousel-caption button {
+  border-radius: 25px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1); /* Invert colors for better visibility */
+}

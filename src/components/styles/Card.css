@@ -1,0 +1,55 @@
+/* Card.css */
+
+.food-card-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.food-card {
+  width: 16rem;
+  max-height: 380px;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.food-card:hover {
+  transform: translateY(-5px);
+}
+
+.food-card-img {
+  height: 150px;
+  object-fit: cover;
+  border-bottom: 3px solid #ffcc00;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  color: #343a40;
+}
+
+.qty-select,
+.size-select {
+  width: 60px;
+}
+
+.price-tag {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #28a745;
+  margin-right: 10px;
+}
+
+.add-to-cart-btn {
+  font-weight: 600;
+  background-color: #28a745;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #218838;
+}

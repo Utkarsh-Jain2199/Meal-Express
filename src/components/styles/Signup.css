@@ -1,0 +1,98 @@
+/* Background container */
+.signup-container {
+  background-image: url("https://images.pexels.com/photos/1565982/pexels-photo-1565982.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form container */
+.signup-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 80px);
+  position: relative;
+}
+
+/* Signup box */
+.signup-form {
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 1rem; /* Reduced padding for less height */
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  width: 70%; /* Increased width */
+  max-width: 600px; /* Increased max-width */
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Form group styling */
+.form-group {
+  margin-bottom: 1rem; /* Reduced margin for less height */
+}
+
+/* Form labels */
+.form-label {
+  color: #ddd;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* Input fields */
+.form-control {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 8px;
+  padding: 0.6rem; /* Reduced padding for input fields */
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  background-color: #444;
+  border-color: #777;
+  box-shadow: 0 0 10px rgba(0, 255, 127, 0.6);
+}
+
+/* Signup heading */
+.signup-heading {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 1rem; /* Reduced margin for less height */
+  font-weight: 600;
+}
+
+/* Buttons */
+.btn {
+  border-radius: 8px;
+  padding: 0.4rem 1.2rem; /* Slightly reduced button padding */
+  font-weight: 600;
+  margin-right: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: #28a745;
+  transform: scale(1.05);
+}
+
+.btn-danger:hover {
+  background-color: #dc3545;
+  transform: scale(1.05);
+}
+
+/* Responsive form width */
+@media (max-width: 768px) {
+  .signup-form {
+    width: 90%;
+    max-width: 500px; /* Slightly reduced max-width for smaller screens */
+  }
+}

@@ -1,0 +1,51 @@
+.navbar-brand {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.bg-custom {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 183, 77, 1) 0%,
+    rgba(255, 111, 0, 1) 100%
+  );
+}
+
+.nav-link {
+  color: #fff !important;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+  color: #ffcc80 !important;
+}
+
+.btn-custom {
+  background-color: #fff;
+  color: #ff6f00;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-custom:hover {
+  background-color: #ffe0b2;
+  color: #e65100;
+}
+
+.btn-custom-cart {
+  background-color: #ff6f00;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-custom-cart:hover {
+  background-color: #e65100;
+  color: #ffe0b2;
+}

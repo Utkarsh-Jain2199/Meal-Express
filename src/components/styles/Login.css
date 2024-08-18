@@ -1,0 +1,105 @@
+/* Background container */
+.login-container {
+  background-image: url("https://images.pexels.com/photos/326278/pexels-photo-326278.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form container */
+.login-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 80px); /* Ensure it takes the full height minus navbar */
+  margin-top: 80px; /* Ensure it accounts for the sticky navbar */
+  position: relative; /* Necessary for absolute centering */
+}
+
+/* Forcefully center the login box */
+.login-form {
+  background-color: rgba(0, 0, 0, 0.85); /* Transparent dark background */
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Smooth shadow */
+  width: 90%;
+  max-width: 500px;
+  margin: 0 auto; /* Force horizontal centering */
+  position: absolute; /* Allow absolute centering */
+  top: 50%;
+  left: 50%;
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Force vertical and horizontal centering */
+}
+
+/* Form group styling */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+/* Form labels */
+.form-label {
+  color: #ddd;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* Form control (inputs) */
+.form-control {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 8px;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  background-color: #444;
+  border-color: #777;
+  box-shadow: 0 0 10px rgba(0, 255, 127, 0.6); /* Subtle focus glow */
+}
+
+/* Form text */
+.form-text {
+  color: #bbb;
+}
+/* Heading inside the login box */
+.login-heading {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+/* Button styling */
+.btn {
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: #28a745;
+  transform: scale(1.05);
+}
+
+.btn-danger:hover {
+  background-color: #dc3545;
+  transform: scale(1.05);
+}
+
+/* Responsive form width */
+@media (max-width: 768px) {
+  .login-form {
+    width: 100%;
+  }
+}
