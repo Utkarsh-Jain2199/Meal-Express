@@ -55,7 +55,7 @@ export default function MyOrder() {
                                     item.Order_date ? null : (
                                         <div key={idx} className="col-12 col-md-6 col-lg-4 mb-3 d-flex">
                                             <div className="card shadow-sm flex-fill">
-                                                <img src={item.img} className="card-img-top" alt="..." />
+                                             {/* <img src={item.img} className="card-img-top" alt={item.name} /> */}
                                                 <div className="card-body">
                                                     <h5 className="card-title">{item.name}</h5>
                                                     <div className="container p-0">
