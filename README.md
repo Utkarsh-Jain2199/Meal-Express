@@ -1,70 +1,217 @@
-# Getting Started with Create React App
+# 🍽️ Meal Express - Food Delivery Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, full-stack food delivery web application built with React and Node.js. Meal Express allows users to browse food items, add them to cart, place orders, and track their order history.
 
-## Available Scripts
+## 🌐 Live Demo
 
-In the project directory, you can run:
+**Deployed Application:** [https://meal-express-phda.vercel.app/](https://meal-express-phda.vercel.app/)
 
-### `npm start`
+## ✨ Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 🔐 User Authentication
+- **User Registration** with email validation and password encryption
+- **Secure Login** with JWT token authentication
+- **Automatic Location Detection** for delivery address
+- **Session Management** with localStorage
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🍕 Food Ordering System
+- **Dynamic Food Menu** with categorized items
+- **Real-time Search** functionality across all food items
+- **Interactive Food Cards** with size and quantity selection
+- **Shopping Cart** with add/remove/update capabilities
+- **Order Placement** with order confirmation
 
-### `npm test`
+### 📱 User Experience
+- **Responsive Design** that works on all devices
+- **Modern UI/UX** with Bootstrap and custom CSS
+- **Loading States** and error handling
+- **Order History** tracking for logged-in users
+- **Modal Cart View** for seamless shopping experience
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🛠️ Technical Features
+- **MERN Stack** (MongoDB, Express.js, React, Node.js)
+- **Context API** for state management
+- **RESTful API** design
+- **MongoDB Atlas** for cloud database
+- **JWT Authentication** for secure sessions
+- **Geolocation API** integration for address detection
 
-### `npm run build`
+## 🏗️ Project Structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+Meal-Express/
+├── backend/                 # Node.js/Express backend
+│   ├── models/             # MongoDB models
+│   │   ├── User.js         # User schema
+│   │   └── Orders.js       # Order schema
+│   ├── Routes/             # API routes
+│   │   └── Auth.js         # Authentication endpoints
+│   ├── middleware/         # Custom middleware
+│   ├── db.js              # Database connection
+│   └── index.js           # Server entry point
+├── src/                    # React frontend
+│   ├── components/         # Reusable components
+│   │   ├── Card.js         # Food item card
+│   │   ├── Navbar.js       # Navigation bar
+│   │   ├── Footer.js       # Footer component
+│   │   ├── ContextReducer.js # State management
+│   │   └── styles/         # Component-specific CSS
+│   ├── screens/            # Main application screens
+│   │   ├── Home.js         # Home page with food menu
+│   │   ├── Login.js        # User login
+│   │   ├── Signup.js       # User registration
+│   │   ├── MyOrder.js      # Order history
+│   │   └── Cart.js         # Shopping cart
+│   └── App.js              # Main application component
+└── public/                 # Static assets
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🚀 Getting Started
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Prerequisites
+- Node.js (v14 or higher)
+- MongoDB Atlas account (or local MongoDB)
+- Git
 
-### `npm run eject`
+### Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Utkarsh-Jain2199/Meal-Express.git
+   cd Meal-Express
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. **Install Frontend Dependencies**
+   ```bash
+   npm install
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. **Install Backend Dependencies**
+   ```bash
+   cd backend
+   npm install
+   cd ..
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. **Environment Setup**
+   - Create a MongoDB Atlas cluster
+   - Update the database connection string in `backend/db.js`
+   - Configure your JWT secret in `backend/Routes/Auth.js`
 
-## Learn More
+5. **Start the Application**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   **Start Backend Server:**
+   ```bash
+   cd backend
+   node index.js
+   ```
+   Backend will run on `http://localhost:5000`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   **Start Frontend Development Server:**
+   ```bash
+   npm start
+   ```
+   Frontend will run on `http://localhost:3000`
 
-### Code Splitting
+## 🛠️ Technology Stack
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Frontend
+- **React 17** - UI library
+- **React Router DOM** - Client-side routing
+- **Bootstrap 5** - CSS framework
+- **Material-UI** - Additional UI components
+- **Context API** - State management
+- **Axios** - HTTP client
 
-### Analyzing the Bundle Size
+### Backend
+- **Node.js** - Runtime environment
+- **Express.js** - Web framework
+- **MongoDB** - Database
+- **Mongoose** - ODM for MongoDB
+- **JWT** - Authentication
+- **bcryptjs** - Password hashing
+- **Express Validator** - Input validation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### External APIs
+- **OpenCage Geocoding API** - Location services
+- **Unsplash** - Food images
 
-### Making a Progressive Web App
+## 📡 API Endpoints
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Authentication
+- `POST /api/auth/createuser` - User registration
+- `POST /api/auth/login` - User login
+- `POST /api/auth/getuser` - Get user details (protected)
 
-### Advanced Configuration
+### Food & Orders
+- `POST /api/auth/foodData` - Get food items and categories
+- `POST /api/auth/orderData` - Place new order
+- `POST /api/auth/myOrderData` - Get user's order history
+- `POST /api/auth/getlocation` - Get address from coordinates
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🎨 Key Components
 
-### Deployment
+### Home Screen
+- Dynamic food menu with categories
+- Real-time search functionality
+- Responsive food cards with add-to-cart
+- Image carousel with food photos
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Authentication
+- Secure user registration with validation
+- Login with JWT token management
+- Automatic location detection for delivery
 
-### `npm run build` fails to minify
+### Shopping Cart
+- Add/remove items functionality
+- Quantity and size selection
+- Real-time price calculation
+- Modal-based cart interface
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Order Management
+- Order placement with confirmation
+- Order history tracking
+- Detailed order information display
+
+## 🔒 Security Features
+
+- **Password Encryption** using bcryptjs
+- **JWT Token Authentication** for secure sessions
+- **Input Validation** using express-validator
+- **CORS Configuration** for cross-origin requests
+- **Protected Routes** for authenticated users
+
+## 🚀 Deployment
+
+The application is deployed on:
+- **Frontend:** Vercel - [https://meal-express-phda.vercel.app/](https://meal-express-phda.vercel.app/)
+- **Backend:** Render - [https://meal-express-backend.onrender.com/](https://meal-express-backend.onrender.com/)
+- **Database:** MongoDB Atlas
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👨‍💻 Author
+
+**Utkarsh Jain**
+- GitHub: [@Utkarsh-Jain2199](https://github.com/Utkarsh-Jain2199)
+
+## 🙏 Acknowledgments
+
+- Unsplash for providing beautiful food images
+- OpenCage for geocoding services
+- Bootstrap and Material-UI for UI components
+- MongoDB Atlas for cloud database hosting
+
+---
+
+**Note:** This is a demonstration project showcasing full-stack web development skills with modern technologies. The application includes user authentication, real-time data fetching, state management, and responsive design principles.
