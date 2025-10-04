@@ -9,7 +9,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("https://meal-express-backend.onrender.com/api/auth/login", {
+    const response = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/login", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

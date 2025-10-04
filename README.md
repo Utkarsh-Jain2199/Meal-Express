@@ -185,7 +185,7 @@ Meal-Express/
 
 The application is deployed on:
 - **Frontend:** Vercel - [https://meal-express-phda.vercel.app/](https://meal-express-phda.vercel.app/)
-- **Backend:** Render - [https://meal-express-backend.onrender.com/](https://meal-express-backend.onrender.com/)
+- **Backend:** Render - [https://meal-express-backend-production.up.railway.app/](https://meal-express-backend-production.up.railway.app/)
 - **Database:** MongoDB Atlas
 
 ## 🤝 Contributing

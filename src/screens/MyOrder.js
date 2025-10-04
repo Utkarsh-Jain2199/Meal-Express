@@ -11,7 +11,7 @@ export default function MyOrder() {
         if (!userEmail) return; // Handle case where email is missing
 
         try {
-            const res = await fetch("https://meal-express-backend.onrender.com/api/auth/myOrderData", {
+            const res = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/myOrderData", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
