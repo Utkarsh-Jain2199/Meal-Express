@@ -59,6 +59,7 @@ export default function Card(props) {
         price: finalPrice,
         qty: qty,
         size: size,
+        img: props.ImgSrc,
       });
     }
   };

@@ -10,7 +10,7 @@ export default function Footer() {
             <a href="/" className="text-decoration-none">
               <h5 className="footer-brand">Meal Express</h5>
             </a>
-            <p className="text-muted mb-0">© 2024 Meal Express, Inc. All rights reserved.</p>
+            <p className="text-muted mb-0">© 2025 Meal Express, Inc. All rights reserved. <br /> Made by Utkarsh Jain</p>
           </div>
           <div className="col-md-6 d-flex justify-content-center justify-content-md-end">
             <ul className="list-inline mb-0">

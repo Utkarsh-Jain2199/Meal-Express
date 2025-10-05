@@ -1,25 +1,11 @@
 import React from 'react';
-import './styles/Carousel.css'; // External CSS for additional styling
+import './styles/Carousel.css';
 
 export default function Carousel() {
     return (
         <div className="carousel-container">
             <div id="carouselExampleFade" className="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div className="carousel-inner" id="carousel">
-                    <div className="carousel-caption d-flex justify-content-center align-items-center" style={{ zIndex: 10 }}>
-                        <form className="d-flex w-75">
-                            <input
-                                className="form-control me-2 w-75 bg-light text-dark shadow-sm"
-                                type="search"
-                                placeholder="Search for delicious meals..."
-                                aria-label="Search"
-                            />
-                            <button className="btn btn-success text-white shadow-sm" type="submit">
-                                Search
-                            </button>
-                        </form>
-                    </div>
-
                     <div className="carousel-item active">
                         <img
                             src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=900&h=700&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"

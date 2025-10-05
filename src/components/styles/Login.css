@@ -1,105 +1,205 @@
-/* Background container */
 .login-container {
-  background-image: url("https://images.pexels.com/photos/326278/pexels-photo-326278.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
-/* Form container */
 .login-form-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: calc(100vh - 80px); /* Ensure it takes the full height minus navbar */
-  margin-top: 80px; /* Ensure it accounts for the sticky navbar */
-  position: relative; /* Necessary for absolute centering */
+  flex: 1;
+  padding: 2rem 1rem;
+  position: relative;
 }
 
-/* Forcefully center the login box */
 .login-form {
-  background-color: rgba(0, 0, 0, 0.85); /* Transparent dark background */
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Smooth shadow */
-  width: 90%;
-  max-width: 500px;
-  margin: 0 auto; /* Force horizontal centering */
-  position: absolute; /* Allow absolute centering */
-  top: 50%;
-  left: 50%;
-  transform: translate(
-    -50%,
-    -50%
-  ); /* Force vertical and horizontal centering */
+  background: #ffffff;
+  padding: 3rem 2.5rem;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  border: 1px solid #ddd;
 }
 
-/* Form group styling */
+.login-form::before {
+  content: '🍔';
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3rem;
+  background-color: #ff6f00;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-heading {
+  text-align: center;
+  color: #ff6f00;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  font-weight: bold;
+  font-size: 2.2rem;
+}
+
 .form-group {
   margin-bottom: 1.5rem;
+  position: relative;
 }
 
-/* Form labels */
 .form-label {
-  color: #ddd;
-  font-weight: 500;
+  color: #555;
+  font-weight: 600;
   margin-bottom: 0.5rem;
   display: block;
+  font-size: 0.95rem;
 }
 
-/* Form control (inputs) */
 .form-control {
-  background-color: #333;
-  color: #fff;
-  border: 1px solid #555;
-  border-radius: 8px;
-  padding: 0.75rem;
-  transition: all 0.3s ease;
+  background-color: #fff !important;
+  color: #333;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  padding: 0.9rem 1.2rem;
+  font-size: 1rem;
+  width: 100%;
 }
 
 .form-control:focus {
-  background-color: #444;
-  border-color: #777;
-  box-shadow: 0 0 10px rgba(0, 255, 127, 0.6); /* Subtle focus glow */
+  background-color: #fff;
+  border-color: #ff6f00;
+  outline: none;
 }
 
-/* Form text */
+.form-control:disabled {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-control::placeholder {
+  color: #999;
+}
+
 .form-text {
-  color: #bbb;
-}
-/* Heading inside the login box */
-.login-heading {
-  text-align: center;
-  color: #fff;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
+  color: #666;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  display: block;
 }
 
-/* Button styling */
 .btn {
-  border-radius: 8px;
-  padding: 0.5rem 1.5rem;
-  font-weight: 600;
-  margin-right: 0.5rem;
-  transition: all 0.3s ease;
+  border-radius: 6px;
+  padding: 0.9rem 2rem;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-right: 0.8rem;
+  margin-top: 1rem;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
 }
 
-.btn-success:hover {
-  background-color: #28a745;
-  transform: scale(1.05);
+.btn-success {
+  background-color: #ff6f00;
+  color: #fff;
+}
+
+.btn-success:hover:not(:disabled) {
+  background-color: #e65100;
+}
+
+.btn-success:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-danger {
+  background: transparent;
+  color: #ff6f00;
+  border: 2px solid #ff6f00;
 }
 
 .btn-danger:hover {
-  background-color: #dc3545;
-  transform: scale(1.05);
+  background: #ff6f00;
+  color: #fff;
 }
 
-/* Responsive form width */
 @media (max-width: 768px) {
   .login-form {
-    width: 100%;
+    padding: 2.5rem 2rem;
+    max-width: 90%;
   }
+  
+  .login-heading {
+    font-size: 1.8rem;
+  }
+  
+  .btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.95rem;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .login-form {
+    padding: 2rem 1.5rem;
+  }
+  
+  .login-form::before {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+    top: -20px;
+  }
+  
+  .login-heading {
+    font-size: 1.6rem;
+    margin-top: 0.5rem;
+  }
+  
+  .form-control {
+    padding: 0.8rem 1rem;
+  }
+}
+
+.divider {
+  margin: 1.5rem 0;
+  text-align: center;
+  position: relative;
+}
+
+.divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #ddd;
+}
+
+.divider span {
+  background-color: #f8f9fa;
+  padding: 0 15px;
+  position: relative;
+  color: #666;
+  font-weight: 500;
+}
+
+.google-login-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
 }

@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Card from '../components/Card';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
-import '../components/styles/Home.css'; // External CSS for improved styling
+import '../components/styles/Home.css';
 
 export default function Home() {
   const [foodCat, setFoodCat] = useState([]);
   const [foodItems, setFoodItems] = useState([]);
   const [search, setSearch] = useState('');
-  const [loading, setLoading] = useState(true); // Loading state for the spinner
+  const [loading, setLoading] = useState(true);
 
   const loadFoodItems = async () => {
     let success = false;
@@ -26,16 +26,12 @@ export default function Home() {
           setFoodItems(response[0]);
           setFoodCat(response[1]);
           success = true;
-          setLoading(false); // Stop loading once data is fetched
-        } else {
-          console.log("API failure", response);
+          setLoading(false);
         }
       } catch (error) {
-        console.log(error, "Error while calling API");
       }
     }
     if (!success) {
-      console.log('Retrying API call...');
       await new Promise((resolve) => setTimeout(resolve, 1000));
     }
   };
@@ -52,14 +48,14 @@ export default function Home() {
           <div className="carousel-caption d-flex justify-content-center align-items-center" style={{ zIndex: "9" }}>
             <div className="search-box w-75">
               <input
-                className="form-control me-2 search-input"
+                id="form-control"
+                className="me-2 search-input"
                 type="search"
                 placeholder="Search for delicious meals..."
                 aria-label="Search"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-              />
-              <button className="btn btn-danger text-white search-clear-btn" onClick={() => setSearch('')}>X</button>
+              />   
             </div>
           </div>
           <div className="carousel-item active">
@@ -82,7 +78,6 @@ export default function Home() {
         </button>
       </div>
 
-      {/* Show loading spinner while fetching food items */}
       {loading ? (
         <div className="loading-container">
           <div className="spinner-border text-warning" role="status">
@@ -91,34 +86,48 @@ export default function Home() {
         </div>
       ) : (
         <div className="container my-5">
-          {/* Filter categories that have matching food items */}
-          {foodCat && foodCat.length !== 0 ? foodCat
-            .filter(category =>
-              foodItems.some(item =>
-                item.CategoryName === category.CategoryName && item.name.toLowerCase().includes(search.toLowerCase())
-              )
-            )
-            .map((category) => {
-              return (
-                <div className="category-section mb-5" key={category.id}>
-                  <div className="category-heading fs-3 mb-3">{category.CategoryName}</div>
-                  <hr className="category-hr" />
-                  <div className="row">
-                    {foodItems && foodItems.length !== 0 ? foodItems
-                      .filter(item => item.CategoryName === category.CategoryName && item.name.toLowerCase().includes(search.toLowerCase()))
-                      .map((filteredItem) => (
-                        <div key={filteredItem._id} className="col-12 col-md-6 col-lg-3 mb-4">
-                          <Card foodName={filteredItem.name} item={filteredItem} options={filteredItem.options[0]} ImgSrc={filteredItem.img} />
-                        </div>
-                      )) : <div className="text-center">No items found</div>}
-                  </div>
-                </div>
+          {foodCat && foodCat.length !== 0 ? (
+            (() => {
+              const filteredCategories = foodCat.filter(category =>
+                foodItems.some(item =>
+                  item.CategoryName === category.CategoryName && item.name.toLowerCase().includes(search.toLowerCase())
+                )
               );
-            }) : ""}
+
+              if (search && filteredCategories.length === 0) {
+                return (
+                  <div className="no-results-container">
+                    <div className="no-results-icon">🔍</div>
+                    <h3 className="no-results-title">No Results Found</h3>
+                    <p className="no-results-message">
+                      We couldn't find any meals matching "{search}". Try searching with different keywords.
+                    </p>
+                  </div>
+                );
+              }
+
+              return filteredCategories.map((category) => {
+                return (
+                  <div className="category-section mb-5" key={category.id}>
+                    <div className="category-heading fs-3 mb-3">{category.CategoryName}</div>
+                    <hr className="category-hr" />
+                    <div className="row">
+                      {foodItems && foodItems.length !== 0 ? foodItems
+                        .filter(item => item.CategoryName === category.CategoryName && item.name.toLowerCase().includes(search.toLowerCase()))
+                        .map((filteredItem) => (
+                          <div key={filteredItem._id} className="col-12 col-md-6 col-lg-3 mb-4">
+                            <Card foodName={filteredItem.name} item={filteredItem} options={filteredItem.options[0]} ImgSrc={filteredItem.img} />
+                          </div>
+                        )) : <div className="text-center">No items found</div>}
+                    </div>
+                  </div>
+                );
+              });
+            })()
+          ) : ""}
         </div>
       )}
-
-      <Footer />
+    <Footer />
     </div>
   );
 }

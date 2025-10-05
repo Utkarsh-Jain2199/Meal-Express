@@ -4,33 +4,46 @@ const CartStateContext = createContext();
 const CartDispatchContext = createContext();
 
 const reducer = (state, action) => {
+    let newState;
     switch (action.type) {
         case "ADD":
-            return [...state, { id: action.id, name: action.name, qty: action.qty, size: action.size, price: action.price, img: action.img }]
+            newState = [...state, { id: action.id, name: action.name, qty: action.qty, size: action.size, price: action.price, img: action.img }]
+            break;
         case "REMOVE":
-            let newArr = [...state]
-            newArr.splice(action.index, 1)
-            return newArr;
+            newState = [...state]
+            newState.splice(action.index, 1)
+            break;
         case "DROP":
-            let empArray = []
-            return empArray
+            newState = []
+            break;
         case "UPDATE":
-            let arr = [...state]
-            arr.find((food, index) => {
+            newState = [...state]
+            newState.find((food, index) => {
                 if (food.id === action.id) {
-                    console.log(food.qty, parseInt(action.qty), action.price + food.price)
-                    arr[index] = { ...food, qty: parseInt(action.qty) + food.qty, price: action.price + food.price }
+                    newState[index] = { ...food, qty: parseInt(action.qty) + food.qty, price: action.price + food.price }
                 }
-                return arr
+                return newState
             })
-            return arr
+            break;
         default:
-            console.log("Error in Reducer");
+            newState = state;
     }
+    
+    localStorage.setItem('cartItems', JSON.stringify(newState));
+    return newState;
 };
 
 export const CartProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(reducer, []);
+    const getInitialCartState = () => {
+        try {
+            const savedCart = localStorage.getItem('cartItems');
+            return savedCart ? JSON.parse(savedCart) : [];
+        } catch (error) {
+            return [];
+        }
+    };
+
+    const [state, dispatch] = useReducer(reducer, getInitialCartState());
 
     return (
         <CartDispatchContext.Provider value={dispatch}>

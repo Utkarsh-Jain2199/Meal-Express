@@ -1,26 +1,23 @@
-/* Footer.css */
-
 .footer-brand {
   font-size: 1.8rem;
   font-weight: bold;
-  color: #ffcc00; /* Custom brand color */
+  color: #ffcc00;
 }
 
 footer {
-  background: #222; /* Dark background for a modern look */
+  background: #222;
 }
 
 .text-muted {
-  color: #bbbbbb !important;
+  color: #bbb;
 }
 
 .social-icon {
   font-size: 1.5rem;
-  transition: color 0.3s ease;
 }
 
 .social-icon:hover {
-  color: #ffcc00; /* Hover effect for icons */
+  color: #ffcc00;
 }
 
 @media (max-width: 768px) {

@@ -1,5 +1,3 @@
-/* Carousel.css */
-
 .carousel-container {
   position: relative;
   width: 100%;
@@ -11,7 +9,6 @@
   height: 400px;
   object-fit: cover;
   filter: brightness(50%);
-  transition: filter 0.5s ease;
 }
 
 .carousel-image:hover {
@@ -43,5 +40,5 @@
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  filter: invert(1); /* Invert colors for better visibility */
+  filter: invert(1);
 }
