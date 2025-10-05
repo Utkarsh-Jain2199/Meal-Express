@@ -42,7 +42,7 @@ export default function MyOrder() {
 
     if (!orderData.hasOrders || !orderData.orderData) {
         return (
-            <div>
+            <div className="my-order-page">
                 <Navbar />
                 <div className="no-orders-container">
                     <div className="no-orders-content">
@@ -65,7 +65,7 @@ export default function MyOrder() {
     }
 
     return (
-        <div>
+        <div className="my-order-page">
             <Navbar />
             <div className="container my-order-container">
                 <h2 className="text-center my-4">My Orders</h2>

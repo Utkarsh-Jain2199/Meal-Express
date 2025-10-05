@@ -1,7 +1,21 @@
+.my-order-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .my-order-container {
   padding: 20px;
   background-color: #f8f9fa;
   border-radius: 8px;
+  flex: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  .my-order-container {
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
 }
 
 .order-date {
@@ -33,6 +47,12 @@
   color: #333;
 }
 
+@media (prefers-color-scheme: dark) {
+  .card-title {
+    color: #ffffff;
+  }
+}
+
 .price-section {
   display: flex;
   justify-content: space-between;
@@ -58,13 +78,26 @@
   background-color: white;
 }
 
+@media (prefers-color-scheme: dark) {
+  .loading-container {
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+}
+
 .no-orders-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 70vh;
+  flex: 1;
   background-color: #f8f9fa;
   padding: 40px 20px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .no-orders-container {
+    background-color: #1a1a1a;
+  }
 }
 
 .no-orders-content {
@@ -74,6 +107,14 @@
   background-color: white;
   border-radius: 12px;
   border: 1px solid #ddd;
+}
+
+@media (prefers-color-scheme: dark) {
+  .no-orders-content {
+    background-color: #2d2d2d;
+    border: 1px solid #444;
+    color: #ffffff;
+  }
 }
 
 .no-orders-icon {
@@ -89,11 +130,23 @@
   margin-bottom: 15px;
 }
 
+@media (prefers-color-scheme: dark) {
+  .no-orders-title {
+    color: #ffffff;
+  }
+}
+
 .no-orders-message {
   color: #666;
   font-size: 1.1rem;
   line-height: 1.6;
   margin-bottom: 30px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .no-orders-message {
+    color: #cccccc;
+  }
 }
 
 .browse-menu-btn {
@@ -109,4 +162,24 @@
 
 .browse-menu-btn:hover {
   background-color: #e55a00;
+}
+
+@media (prefers-color-scheme: dark) {
+  .my-order-container h2 {
+    color: #ffffff;
+  }
+  
+  .card {
+    background-color: #2d2d2d;
+    border: 1px solid #444;
+  }
+  
+  .card-body {
+    background-color: #2d2d2d;
+    color: #ffffff;
+  }
+  
+  .text-muted {
+    color: #cccccc !important;
+  }
 }
