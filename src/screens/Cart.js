@@ -159,7 +159,12 @@ export default function Cart() {
           'Content-Type': 'application/json',
           'auth-token': token
         },
-        body: JSON.stringify({ amount: totalPrice })
+        body: JSON.stringify({ 
+          cartItems: items,
+          deliveryAddress: checkoutAddress || userAddress,
+          orderName: orderName,
+          orderMobile: orderMobile
+        })
       });
 
       const { order } = await orderResponse.json();
@@ -182,7 +187,11 @@ export default function Cart() {
               body: JSON.stringify({
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature
+                razorpay_signature: response.razorpay_signature,
+                cartItems: items,
+                deliveryAddress: checkoutAddress || userAddress,
+                orderName: orderName,
+                orderMobile: orderMobile
               })
             });
 
