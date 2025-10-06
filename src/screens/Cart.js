@@ -153,21 +153,33 @@ export default function Cart() {
       const keyResponse = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/razorpay-key");
       const { key } = await keyResponse.json();
 
+      const requestData = { 
+        cartItems: items,
+        deliveryAddress: checkoutAddress || userAddress,
+        orderName: orderName,
+        orderMobile: orderMobile
+      };
+
       const orderResponse = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/create-order", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'auth-token': token
         },
-        body: JSON.stringify({ 
-          cartItems: items,
-          deliveryAddress: checkoutAddress || userAddress,
-          orderName: orderName,
-          orderMobile: orderMobile
-        })
+        body: JSON.stringify(requestData)
       });
 
-      const { order } = await orderResponse.json();
+      const orderData = await orderResponse.json();
+      
+      if (!orderData.success) {
+        setToastType("error");
+        setToastMessage(orderData.error || 'Failed to create payment order');
+        setShowSuccessToast(true);
+        setTimeout(() => setShowSuccessToast(false), 3000);
+        return;
+      }
+      
+      const { order } = orderData;
 
       const options = {
         key: key,
