@@ -154,7 +154,7 @@ export default function Cart() {
       const { key } = await keyResponse.json();
 
       const requestData = { 
-        cartItems: items,
+        cartItems: data,
         deliveryAddress: checkoutAddress || userAddress,
         orderName: orderName,
         orderMobile: orderMobile
@@ -200,7 +200,7 @@ export default function Cart() {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
-                cartItems: items,
+                cartItems: data,
                 deliveryAddress: checkoutAddress || userAddress,
                 orderName: orderName,
                 orderMobile: orderMobile
