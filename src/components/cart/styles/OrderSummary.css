@@ -1,0 +1,16 @@
+.order-summary {
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 0;
+  color: #555;
+  font-weight: 500;
+}
+

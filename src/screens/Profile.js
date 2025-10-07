@@ -16,6 +16,7 @@ export default function Profile() {
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
   const [message, setMessage] = useState("");
+  const [mobileError, setMobileError] = useState("");
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -87,10 +88,38 @@ export default function Profile() {
     }
   };
 
+  const handleMobileChange = (e) => {
+    const value = e.target.value;
+    
+    if (value === '') {
+      setMobile('');
+      setMobileError('');
+      return;
+    }
+    
+    if (!/^\d+$/.test(value)) {
+      return;
+    }
+    
+    if (value.length > 10) {
+      return;
+    }
+    
+    setMobileError('');
+    setMobile(value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setUpdating(true);
     setMessage("");
+    setMobileError("");
+
+    if (mobile && !/^\d{10}$/.test(mobile)) {
+      setMobileError('Mobile number must be exactly 10 digits');
+      setUpdating(false);
+      return;
+    }
 
     const token = localStorage.getItem('token');
     if (!token) {
@@ -189,13 +218,16 @@ export default function Profile() {
               <label htmlFor="mobile" className="form-label">Mobile Number</label>
               <input
                 type="tel"
-                className="form-control"
+                className={`form-control ${mobileError ? 'input-error' : ''}`}
                 name="mobile"
-                placeholder="Enter your mobile number"
+                placeholder="Enter 10 digit mobile number"
                 value={mobile}
-                onChange={(e) => setMobile(e.target.value)}
+                onChange={handleMobileChange}
                 maxLength="10"
+                pattern="[0-9]*"
+                inputMode="numeric"
               />
+              {mobileError && <span className="error-message">{mobileError}</span>}
             </div>
 
             <div className="form-group">
