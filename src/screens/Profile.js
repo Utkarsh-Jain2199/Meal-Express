@@ -39,7 +39,7 @@ export default function Profile() {
     }
 
     try {
-      const response = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/getuser", {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/getuser`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ export default function Profile() {
       });
 
       let [lat, long] = latlong;
-      const response = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/getlocation", {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/getlocation`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -128,7 +128,7 @@ export default function Profile() {
     }
 
     try {
-      const response = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/updateuser", {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/updateuser`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
