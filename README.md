@@ -94,6 +94,15 @@ Meal-Express/
    ```
 
 4. **Environment Setup**
+   
+   **Frontend Environment Variables:**
+   Create a `.env` file in the root directory with:
+   ```env
+   REACT_APP_BACKEND_URL=https://meal-express-backend.onrender.com
+   REACT_APP_GOOGLE_CLIENT_ID=your-google-client-id-here
+   ```
+   
+   **Backend Environment Variables:**
    - Create a MongoDB Atlas cluster
    - Update the database connection string in `backend/db.js`
    - Configure your JWT secret in `backend/Routes/Auth.js`
@@ -185,7 +194,7 @@ Meal-Express/
 
 The application is deployed on:
 - **Frontend:** Vercel - [https://meal-express-phda.vercel.app/](https://meal-express-phda.vercel.app/)
-- **Backend:** Render - [https://meal-express-backend-production.up.railway.app/](https://meal-express-backend-production.up.railway.app/)
+- **Backend:** Render - [https://meal-express-backend.onrender.com/](https://meal-express-backend.onrender.com/)
 - **Database:** MongoDB Atlas
 
 ## 🤝 Contributing
