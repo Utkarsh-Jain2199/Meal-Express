@@ -26,7 +26,7 @@ export default function Signup() {
     setLoading(true);
     
     try {
-      const response = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/createuser", {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/createuser`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -92,7 +92,7 @@ export default function Signup() {
   const handleGoogleResponse = async (response) => {
     try {
       setLoading(true);
-      const res = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/google-auth", {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/google-auth`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
