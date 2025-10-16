@@ -15,7 +15,7 @@ export const usePayment = (data, dispatch, checkoutAddress, userAddress, orderNa
     const userEmail = localStorage.getItem("userEmail");
 
     try {
-      const keyResponse = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/razorpay-key");
+      const keyResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/razorpay-key`);
       const { key } = await keyResponse.json();
 
       const requestData = { 
@@ -25,7 +25,7 @@ export const usePayment = (data, dispatch, checkoutAddress, userAddress, orderNa
         orderMobile: orderMobile
       };
 
-      const orderResponse = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/create-order", {
+      const orderResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/create-order`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ export const usePayment = (data, dispatch, checkoutAddress, userAddress, orderNa
         order_id: order.id,
         handler: async function (response) {
           try {
-            const verifyResponse = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/verify-payment", {
+            const verifyResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/verify-payment`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ export const usePayment = (data, dispatch, checkoutAddress, userAddress, orderNa
             const verifyData = await verifyResponse.json();
 
             if (verifyData.success) {
-              const orderDataResponse = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/orderData", {
+              const orderDataResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/orderData`, {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'
@@ -144,4 +144,3 @@ export const usePayment = (data, dispatch, checkoutAddress, userAddress, orderNa
 
   return { handleCheckOut };
 };
-
