@@ -31,7 +31,7 @@ export const useUserData = () => {
     }
 
     try {
-      const response = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/getuser", {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/getuser`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -68,4 +68,3 @@ export const useUserData = () => {
     setCheckoutAddress
   };
 };
-
