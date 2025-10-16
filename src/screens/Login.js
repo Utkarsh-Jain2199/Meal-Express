@@ -12,7 +12,7 @@ export default function Login() {
   const fetchUserName = async (email) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/getuser", {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/getuser`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ export default function Login() {
     setLoading(true);
     
     try {
-      const response = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/login", {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -96,7 +96,7 @@ export default function Login() {
   const handleGoogleResponse = async (response) => {
     try {
       setLoading(true);
-      const res = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/google-auth", {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/google-auth`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
