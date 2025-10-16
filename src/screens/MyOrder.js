@@ -11,7 +11,7 @@ export default function MyOrder() {
         if (!userEmail) return;
 
         try {
-            const res = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/myOrderData", {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/myOrderData`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
