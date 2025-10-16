@@ -14,7 +14,7 @@ export default function Home() {
     let success = false;
     while (!success) {
       try {
-        let response = await fetch("https://meal-express-backend-production.up.railway.app/api/auth/foodData", {
+        let response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/foodData`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
