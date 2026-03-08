@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Badge } from '@mui/material';
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { useCart } from './ContextReducer';
@@ -7,9 +7,7 @@ import './styles/Navbar.css';
 
 export default function Navbar(props) {
     const [userName, setUserName] = useState("")
-    const [loading, setLoading] = useState(false)
     localStorage.setItem('temp', "first")
-    let navigate = useNavigate();
 
     useEffect(() => {
         if (localStorage.getItem("token")) {
@@ -27,7 +25,6 @@ export default function Navbar(props) {
         if (!token) return;
 
         try {
-            setLoading(true);
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/getuser`, {
                 method: 'POST',
                 headers: {
@@ -43,15 +40,10 @@ export default function Navbar(props) {
                 localStorage.setItem('userName', user.name);
             }
         } catch (error) {
-        } finally {
-            setLoading(false);
+            // silently handle fetch errors
         }
     };
-    const handleLogout = () => {
-        localStorage.removeItem('token')
 
-        navigate("/login")
-    }
 
 
     const items = useCart();

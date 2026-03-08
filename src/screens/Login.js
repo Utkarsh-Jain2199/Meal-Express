@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Navbar from '../components/Navbar';
 import { useNavigate, Link } from 'react-router-dom';
 import '../components/styles/Login.css';
@@ -29,14 +29,14 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!credentials.email.trim() || !credentials.password.trim()) {
       alert("Please fill in all fields");
       return;
     }
-    
+
     setLoading(true);
-    
+
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/login`, {
         method: 'POST',
@@ -73,27 +73,7 @@ export default function Login() {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  useEffect(() => {
-    if (window.google && googleButtonRef.current) {
-      window.google.accounts.id.initialize({
-        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-        callback: handleGoogleResponse
-      });
-
-      window.google.accounts.id.renderButton(
-        googleButtonRef.current,
-        {
-          theme: "filled_blue",
-          size: "large",
-          text: "signin_with",
-          shape: "rectangular",
-          width: 300
-        }
-      );
-    }
-  }, []);
-
-  const handleGoogleResponse = async (response) => {
+  const handleGoogleResponse = useCallback(async (response) => {
     try {
       setLoading(true);
       const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/google-auth`, {
@@ -120,7 +100,27 @@ export default function Login() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [navigate]);
+
+  useEffect(() => {
+    if (window.google && googleButtonRef.current) {
+      window.google.accounts.id.initialize({
+        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+        callback: handleGoogleResponse
+      });
+
+      window.google.accounts.id.renderButton(
+        googleButtonRef.current,
+        {
+          theme: "filled_blue",
+          size: "large",
+          text: "signin_with",
+          shape: "rectangular",
+          width: 300
+        }
+      );
+    }
+  }, [handleGoogleResponse]);
 
   return (
     <div className="login-container">
@@ -143,11 +143,11 @@ export default function Login() {
             {loading ? 'Logging in...' : 'Submit'}
           </button>
           <Link to="/signup" className="btn btn-danger">New User</Link>
-          
+
           <div className="divider">
             <span>OR</span>
           </div>
-          
+
           <div className="google-login-wrapper">
             <div ref={googleButtonRef}></div>
           </div>

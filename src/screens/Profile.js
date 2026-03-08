@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -19,19 +19,7 @@ export default function Profile() {
   const [mobileError, setMobileError] = useState("");
   let navigate = useNavigate();
 
-  useEffect(() => {
-    const storedName = localStorage.getItem('userName');
-    const storedEmail = localStorage.getItem('userEmail');
-    if (storedName) {
-      setUserData(prev => ({ ...prev, name: storedName }));
-    }
-    if (storedEmail) {
-      setUserData(prev => ({ ...prev, email: storedEmail }));
-    }
-    fetchUserData();
-  }, []);
-
-  const fetchUserData = async () => {
+  const fetchUserData = useCallback(async () => {
     const token = localStorage.getItem('token');
     if (!token) {
       navigate('/login');
@@ -55,7 +43,19 @@ export default function Profile() {
     } catch (error) {
       setLoading(false);
     }
-  };
+  }, [navigate]);
+
+  useEffect(() => {
+    const storedName = localStorage.getItem('userName');
+    const storedEmail = localStorage.getItem('userEmail');
+    if (storedName) {
+      setUserData(prev => ({ ...prev, name: storedName }));
+    }
+    if (storedEmail) {
+      setUserData(prev => ({ ...prev, email: storedEmail }));
+    }
+    fetchUserData();
+  }, [fetchUserData]);
 
   const handleLocationClick = async (e) => {
     e.preventDefault();
@@ -65,7 +65,7 @@ export default function Profile() {
           navigator.geolocation.getCurrentPosition(res, rej);
         });
       }
-      
+
       let latlong = await navLocation().then(res => {
         let latitude = res.coords.latitude;
         let longitude = res.coords.longitude;
@@ -90,21 +90,21 @@ export default function Profile() {
 
   const handleMobileChange = (e) => {
     const value = e.target.value;
-    
+
     if (value === '') {
       setMobile('');
       setMobileError('');
       return;
     }
-    
+
     if (!/^\d+$/.test(value)) {
       return;
     }
-    
+
     if (value.length > 10) {
       return;
     }
-    
+
     setMobileError('');
     setMobile(value);
   };

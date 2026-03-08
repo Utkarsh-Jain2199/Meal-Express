@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import '../components/styles/Signup.css';
@@ -12,28 +12,28 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!credentials.name.trim() || !credentials.email.trim() || !credentials.password.trim()) {
       alert("Please fill in all fields");
       return;
     }
-    
+
     if (credentials.password.length < 5) {
       alert("Password must be at least 5 characters long");
       return;
     }
-    
+
     setLoading(true);
-    
+
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/createuser`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ 
-          name: credentials.name, 
-          email: credentials.email, 
+        body: JSON.stringify({
+          name: credentials.name,
+          email: credentials.email,
           password: credentials.password
         })
       });
@@ -69,27 +69,7 @@ export default function Signup() {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  useEffect(() => {
-    if (window.google && googleButtonRef.current) {
-      window.google.accounts.id.initialize({
-        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-        callback: handleGoogleResponse
-      });
-
-      window.google.accounts.id.renderButton(
-        googleButtonRef.current,
-        {
-          theme: "filled_blue",
-          size: "large",
-          text: "signup_with",
-          shape: "rectangular",
-          width: 300
-        }
-      );
-    }
-  }, []);
-
-  const handleGoogleResponse = async (response) => {
+  const handleGoogleResponse = useCallback(async (response) => {
     try {
       setLoading(true);
       const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/google-auth`, {
@@ -116,7 +96,27 @@ export default function Signup() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [navigate]);
+
+  useEffect(() => {
+    if (window.google && googleButtonRef.current) {
+      window.google.accounts.id.initialize({
+        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+        callback: handleGoogleResponse
+      });
+
+      window.google.accounts.id.renderButton(
+        googleButtonRef.current,
+        {
+          theme: "filled_blue",
+          size: "large",
+          text: "signup_with",
+          shape: "rectangular",
+          width: 300
+        }
+      );
+    }
+  }, [handleGoogleResponse]);
 
   return (
     <div className="signup-container">
@@ -143,11 +143,11 @@ export default function Signup() {
             {loading ? 'Creating Account...' : 'Submit'}
           </button>
           <Link to="/login" className="btn btn-danger">Already a user</Link>
-          
+
           <div className="divider">
             <span>OR</span>
           </div>
-          
+
           <div className="google-login-wrapper">
             <div ref={googleButtonRef}></div>
           </div>
